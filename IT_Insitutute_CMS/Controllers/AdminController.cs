@@ -79,5 +79,12 @@ namespace IT_Insitutute_CMS.Controllers
             _adminRepository.UpdateStudent(student);
             return Ok(student);
         }
+
+        [HttpGet("get-All-Students")]
+        public IActionResult getregstudents()
+        {
+            var students = _adminRepository.getregstudents();
+            return Ok(students);
+        }
     }
 }
