@@ -166,5 +166,21 @@ namespace IT_Insitutute_CMS.Repositories
 
 
         }
+
+        public void UpdateCourse(int Id, decimal Totalfee)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "UPDATE Courses SET CourseFee=@CourseFee WHERE CourseID == @CourseID";
+                command.Parameters.AddWithValue("@CourseID", Id);
+                command.Parameters.AddWithValue("@CourseFee", Totalfee);
+                command.ExecuteNonQuery();
+
+
+            }
+
+        }
     }
 }

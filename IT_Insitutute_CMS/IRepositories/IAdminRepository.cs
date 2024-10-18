@@ -14,6 +14,7 @@ namespace IT_Insitutute_CMS.IRepositories
         regstuResponce getstudentbyNic(string Nic);
         void AddCourse(course course);
         void DeleteCourse(int id);
+        void UpdateCourse(int Id, decimal Totalfee);
 
     }
 }
