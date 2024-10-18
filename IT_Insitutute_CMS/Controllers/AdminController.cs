@@ -86,5 +86,12 @@ namespace IT_Insitutute_CMS.Controllers
             var students = _adminRepository.getregstudents();
             return Ok(students);
         }
+
+        [HttpGet("get-student-byNic")]
+        public IActionResult getstudentbyNic(string Nic)
+        {
+            var student = _adminRepository.getstudentbyNic(Nic);
+            return Ok(student);
+        }
     }
 }
