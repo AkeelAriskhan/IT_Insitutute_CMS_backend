@@ -1,6 +1,7 @@
 ﻿using IT_Insitutute_CMS.Entities;
 using IT_Insitutute_CMS.IRepositories;
 using IT_Insitutute_CMS.Models.Request;
+using IT_Insitutute_CMS.Models.Responce;
 using Microsoft.Data.Sqlite;
 
 namespace IT_Insitutute_CMS.Repositories
@@ -58,6 +59,43 @@ namespace IT_Insitutute_CMS.Repositories
                 command.ExecuteNonQuery();
             }
 
+        }
+
+        public ICollection<regstuResponce> getregstudents()
+        {
+
+            var studentslist = new List<regstuResponce>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = @"select * from Students ";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var student = new regstuResponce()
+                        {
+                            Nic = reader.GetString(0),
+                            FullName = reader.GetString(1),
+                            Email = reader.GetString(2),
+                            PhoneNumber = reader.GetString(3),
+                            Password = reader.GetString(4),
+                            RegistrationFee = reader.GetDecimal(5),
+                            ImagePath = reader.IsDBNull(6) ? null : reader.GetString(6),
+                            course = reader.IsDBNull(7) ? null : reader.GetString(7),
+                            ProficiencyLevels = reader.IsDBNull(8) ? null : reader.GetString(8),
+                            duration = reader.IsDBNull(9) ? null : reader.GetString(9),
+                            fullpayment = reader.IsDBNull(10) ? 0 : reader.GetDecimal(10),
+                            paymentDate = reader.IsDBNull(11) ? new DateTime(0) : reader.GetDateTime(11),
+
+                        };
+                        studentslist.Add(student);
+                    }
+
+                }
+            }
+            return studentslist;
         }
     }
 }
