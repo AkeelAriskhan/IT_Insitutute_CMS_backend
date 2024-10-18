@@ -14,6 +14,13 @@ namespace IT_Insitutute_CMS.Controllers
         {
             _notificationsRepository = notificationsRepository;
         }
+        [HttpGet("Get-All-Notifications")]
+
+        public IActionResult GetAllCourseNotifications()
+        {
+            var notificationList = _notificationsRepository.GetAllNotifications();
+            return Ok(notificationList);
+        }
 
     }
 }
