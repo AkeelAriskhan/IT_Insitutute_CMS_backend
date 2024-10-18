@@ -93,5 +93,33 @@ namespace IT_Insitutute_CMS.Controllers
             var student = _adminRepository.getstudentbyNic(Nic);
             return Ok(student);
         }
+
+        [HttpPost("Add-Course")]
+        public IActionResult AddCourse(course course)
+        {
+            _adminRepository.AddCourse(course);
+            return Ok(course);
+        }
+
+        [HttpDelete("Delete-Course/{id}")]
+
+        public IActionResult DeleteCourse(int id)
+        {
+            _adminRepository.DeleteCourse(id);
+            return Ok(id);
+        }
+        [HttpPut("update-Course")]
+        public IActionResult UpdateCourse(int Id, decimal Totalfee)
+        {
+            _adminRepository.UpdateCourse(Id, Totalfee);
+            return Ok("Course Updated");
+        }
+
+        [HttpGet("Get-All-course")]
+        public IActionResult GetCourse()
+        {
+            var course = _adminRepository.GetCourses();
+            return Ok(course);
+        }
     }
 }

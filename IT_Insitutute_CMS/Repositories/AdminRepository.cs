@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 
 namespace IT_Insitutute_CMS.Repositories
 {
-    public class AdminRepository: IAdminRepository
+    public class AdminRepository : IAdminRepository
     {
         private readonly string _connectionString;
 
@@ -134,6 +134,79 @@ namespace IT_Insitutute_CMS.Repositories
                 }
             }
 
+        }
+
+        public void AddCourse(course course)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO Courses(CourseID,CourseName,ProficiencyLevel,CourseFee) VALUES(@CourseID,@CourseName,@ProficiencyLevel,@CourseFee)";
+                command.Parameters.AddWithValue("@CourseID", course.courseid);
+                command.Parameters.AddWithValue("@CourseName", course.coursename);
+                command.Parameters.AddWithValue("@ProficiencyLevel", course.ProficiencyLevel);
+                command.Parameters.AddWithValue("@CourseFee", course.courseFee);
+                command.ExecuteNonQuery();
+
+
+            }
+        }
+        public void DeleteCourse(int id)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "DELETE FROM Courses where CourseID == @id ";
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+
+
+        }
+
+        public void UpdateCourse(int Id, decimal Totalfee)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "UPDATE Courses SET CourseFee=@CourseFee WHERE CourseID == @CourseID";
+                command.Parameters.AddWithValue("@CourseID", Id);
+                command.Parameters.AddWithValue("@CourseFee", Totalfee);
+                command.ExecuteNonQuery();
+
+
+            }
+
+        }
+
+        public ICollection<course> GetCourses()
+        {
+            var courses = new List<course>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = @"select * from Courses";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var course = new course()
+                        {
+                            courseid = reader.GetInt32(0),
+                            coursename = reader.GetString(1),
+                            ProficiencyLevel = reader.GetString(2),
+                            courseFee = reader.GetInt32(3)
+
+                        };
+                        courses.Add(course);
+                    }
+                }
+            }
+            return courses;
         }
     }
 }
