@@ -1,5 +1,6 @@
 ﻿using IT_Insitutute_CMS.Entities;
 using IT_Insitutute_CMS.IRepositories;
+using IT_Insitutute_CMS.Models.Request;
 using Microsoft.Data.Sqlite;
 
 namespace IT_Insitutute_CMS.Repositories
@@ -40,6 +41,23 @@ namespace IT_Insitutute_CMS.Repositories
                 command.Parameters.AddWithValue("@Nic", nic);
                 command.ExecuteNonQuery();
             }
+        }
+
+        public void UpdateStudent(studentupdateRequest student)
+
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "UPDATE Students SET FullName=@Fullname ,Email=@Email,PhoneNumber=@PhoneNumber WHERE Nic == @Nic";
+                command.Parameters.AddWithValue("@Nic", student.Nic);
+                command.Parameters.AddWithValue("@Fullname", student.FullName);
+                command.Parameters.AddWithValue("@Email", student.Email);
+                command.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
+                command.ExecuteNonQuery();
+            }
+
         }
     }
 }
