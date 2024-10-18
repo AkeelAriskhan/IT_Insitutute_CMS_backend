@@ -11,6 +11,7 @@ namespace IT_Insitutute_CMS.IRepositories
         void UpdateStudent(studentupdateRequest student);
 
         ICollection<regstuResponce> getregstudents();
+        regstuResponce getstudentbyNic(string Nic);
 
 
     }
