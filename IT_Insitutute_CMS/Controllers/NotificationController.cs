@@ -29,6 +29,13 @@ namespace IT_Insitutute_CMS.Controllers
             _notificationsRepository.AddNotification(notification);
             return Ok("Notification Added Successfully..");
         }
+        [HttpDelete("Delete-Notification/{Id}")]
+
+        public IActionResult DeleteCourseNotification(int Id)
+        {
+            _notificationsRepository.DeleteNotification(Id);
+            return Ok("Deleted Successfully...");
+        }
 
     }
 }
