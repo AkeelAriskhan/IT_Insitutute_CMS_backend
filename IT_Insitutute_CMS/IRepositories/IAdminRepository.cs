@@ -10,6 +10,7 @@ namespace IT_Insitutute_CMS.IRepositories
         void DeleteStudent(string nic);
         void UpdateStudent(studentupdateRequest student);
         void AddCourse(course course);
+        void DeleteCourse(int id);
         ICollection<regstuResponce> getregstudents();
         regstuResponce getstudentbyNic(string Nic);
 

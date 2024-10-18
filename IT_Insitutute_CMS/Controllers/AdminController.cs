@@ -100,5 +100,13 @@ namespace IT_Insitutute_CMS.Controllers
             _adminRepository.AddCourse(course);
             return Ok(course);
         }
+
+        [HttpDelete("Delete-Course/{id}")]
+
+        public IActionResult DeleteCourse(int id)
+        {
+            _adminRepository.DeleteCourse(id);
+            return Ok(id);
+        }
     }
 }
