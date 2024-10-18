@@ -114,5 +114,12 @@ namespace IT_Insitutute_CMS.Controllers
             _adminRepository.UpdateCourse(Id, Totalfee);
             return Ok("Course Updated");
         }
+
+        [HttpGet("Get-All-course")]
+        public IActionResult GetCourse()
+        {
+            var course = _adminRepository.GetCourses();
+            return Ok(course);
+        }
     }
 }

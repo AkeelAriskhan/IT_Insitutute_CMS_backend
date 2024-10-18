@@ -182,5 +182,32 @@ namespace IT_Insitutute_CMS.Repositories
             }
 
         }
+
+        public ICollection<course> GetCourses()
+        {
+            var courses = new List<course>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = @"select * from Courses";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var course = new course()
+                        {
+                            courseid = reader.GetInt32(0),
+                            coursename = reader.GetString(1),
+                            ProficiencyLevel = reader.GetString(2),
+                            courseFee = reader.GetInt32(3)
+
+                        };
+                        courses.Add(course);
+                    }
+                }
+            }
+            return courses;
+        }
     }
 }

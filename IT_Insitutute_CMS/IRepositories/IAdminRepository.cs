@@ -15,6 +15,6 @@ namespace IT_Insitutute_CMS.IRepositories
         void AddCourse(course course);
         void DeleteCourse(int id);
         void UpdateCourse(int Id, decimal Totalfee);
-
+        ICollection<course> GetCourses();
     }
 }
