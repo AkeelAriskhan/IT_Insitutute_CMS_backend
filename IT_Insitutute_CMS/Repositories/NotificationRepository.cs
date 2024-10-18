@@ -71,5 +71,24 @@ namespace IT_Insitutute_CMS.Repositories
                 throw new Exception($"Error: {error.Message}");
             }
         }
+        public void DeleteNotification(int id)
+        {
+            try
+            {
+                using (var connection = new SqliteConnection(_ConnectionString))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"UPDATE Notifications SET IsDeleted = @isDeleted WHERE Id == @id";
+                    command.Parameters.AddWithValue("@isDeleted", true);
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception error)
+            {
+                throw new Exception($"Error: {error.Message}");
+            }
+        }
     }
 }
