@@ -25,5 +25,17 @@ namespace IT_Insitutute_CMS.Repositories
             }
 
         }
+        public void passwordupdate(string password, string nic)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = @"UPDATE Students SET password=@password where nic=@nic";
+                command.Parameters.AddWithValue("@password", password);
+                command.Parameters.AddWithValue("@nic", nic);
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
