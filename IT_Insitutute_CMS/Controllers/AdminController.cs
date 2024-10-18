@@ -72,5 +72,12 @@ namespace IT_Insitutute_CMS.Controllers
             _adminRepository.DeleteStudent(nic);
             return Ok("Deleted");
         }
+
+        [HttpPut("Update-Student")]
+        public IActionResult UpdateStudent(studentupdateRequest student)
+        {
+            _adminRepository.UpdateStudent(student);
+            return Ok(student);
+        }
     }
 }
