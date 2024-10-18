@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IT_Insitutute_CMS.Models.Request;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Insitutute_CMS.Controllers
 {
@@ -12,6 +13,12 @@ namespace IT_Insitutute_CMS.Controllers
         {
             _istudentRepository = istudentRepository;
         }
+        [HttpPut("course-selection")]
+        public IActionResult courseselction(string nic, courseSelctionreq coursesel)
+        {
+            _istudentRepository.courseselction(nic, coursesel);
+            return Ok("Added");
 
+        }
     }
 }
