@@ -12,7 +12,7 @@ namespace IT_Insitutute_CMS.IRepositories
 
         ICollection<regstuResponce> getregstudents();
         regstuResponce getstudentbyNic(string Nic);
-
+        ContactUs AddContactUsDetails(ContactUs contactUs);
 
     }
 }
