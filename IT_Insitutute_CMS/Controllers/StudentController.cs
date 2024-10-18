@@ -20,5 +20,12 @@ namespace IT_Insitutute_CMS.Controllers
             return Ok("Added");
 
         }
+        [HttpPut("password-Update")]
+        public IActionResult passwordupdate(string password, string nic)
+        {
+            _istudentRepository.passwordupdate(password, nic);
+            return Ok("changed");
+        }
+
     }
 }
