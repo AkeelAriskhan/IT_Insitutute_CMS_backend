@@ -30,5 +30,16 @@ namespace IT_Insitutute_CMS.Repositories
             }
 
         }
+        public void DeleteStudent(string nic)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "DELETE FROM Students where Nic == @Nic ";
+                command.Parameters.AddWithValue("@Nic", nic);
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
