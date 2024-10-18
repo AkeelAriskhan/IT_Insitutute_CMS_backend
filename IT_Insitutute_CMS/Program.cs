@@ -1,4 +1,7 @@
 
+using IT_Insitutute_CMS.IRepositories;
+using IT_Insitutute_CMS.Repositories;
+
 namespace IT_Insitutute_CMS
 {
     public class Program
@@ -13,6 +16,8 @@ namespace IT_Insitutute_CMS
             // Add services to the container.
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddSingleton<IAdminRepository>(provider => new AdminRepository(connectionString));
+
 
 
             builder.Services.AddControllers();
