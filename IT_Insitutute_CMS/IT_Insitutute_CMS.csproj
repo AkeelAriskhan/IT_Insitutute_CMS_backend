@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="IRepositories\" />
-    <Folder Include="Models\Responce\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 
