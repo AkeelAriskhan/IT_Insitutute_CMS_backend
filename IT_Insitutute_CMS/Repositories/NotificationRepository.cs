@@ -7,7 +7,12 @@ namespace IT_Insitutute_CMS.Repositories
 {
     public class NotificationRepository: INotificationRepository
     {
-       
+        private readonly string _ConnectionString;
+
+        public NotificationRepository(string connectionString)
+        {
+            _ConnectionString = connectionString;
+        }
 
     }
 }
