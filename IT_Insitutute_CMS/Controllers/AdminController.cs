@@ -10,5 +10,11 @@ namespace IT_Insitutute_CMS.Controllers
     {
         private readonly IAdminRepository _adminRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public AdminController(IAdminRepository adminRepository, IWebHostEnvironment webHostEnvironment)
+        {
+            _adminRepository = adminRepository;
+            _webHostEnvironment = webHostEnvironment;
+        }
     }
 }
