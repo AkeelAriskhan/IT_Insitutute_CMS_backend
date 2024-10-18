@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 
 namespace IT_Insitutute_CMS.Repositories
 {
-    public class AdminRepository: IAdminRepository
+    public class AdminRepository : IAdminRepository
     {
         private readonly string _connectionString;
 
@@ -134,6 +134,23 @@ namespace IT_Insitutute_CMS.Repositories
                 }
             }
 
+        }
+
+        public void AddCourse(course course)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO Courses(CourseID,CourseName,ProficiencyLevel,CourseFee) VALUES(@CourseID,@CourseName,@ProficiencyLevel,@CourseFee)";
+                command.Parameters.AddWithValue("@CourseID", course.courseid);
+                command.Parameters.AddWithValue("@CourseName", course.coursename);
+                command.Parameters.AddWithValue("@ProficiencyLevel", course.ProficiencyLevel);
+                command.Parameters.AddWithValue("@CourseFee", course.courseFee);
+                command.ExecuteNonQuery();
+
+
+            }
         }
     }
 }
