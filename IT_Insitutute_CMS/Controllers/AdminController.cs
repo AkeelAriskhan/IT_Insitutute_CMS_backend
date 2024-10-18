@@ -93,5 +93,20 @@ namespace IT_Insitutute_CMS.Controllers
             var student = _adminRepository.getstudentbyNic(Nic);
             return Ok(student);
         }
+
+        [HttpPost("Add-Course")]
+        public IActionResult AddCourse(course course)
+        {
+            _adminRepository.AddCourse(course);
+            return Ok(course);
+        }
+
+        [HttpDelete("Delete-Course/{id}")]
+
+        public IActionResult DeleteCourse(int id)
+        {
+            _adminRepository.DeleteCourse(id);
+            return Ok(id);
+        }
     }
 }

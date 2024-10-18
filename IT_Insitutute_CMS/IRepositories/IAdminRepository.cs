@@ -12,7 +12,8 @@ namespace IT_Insitutute_CMS.IRepositories
 
         ICollection<regstuResponce> getregstudents();
         regstuResponce getstudentbyNic(string Nic);
-
+        void AddCourse(course course);
+        void DeleteCourse(int id);
 
     }
 }

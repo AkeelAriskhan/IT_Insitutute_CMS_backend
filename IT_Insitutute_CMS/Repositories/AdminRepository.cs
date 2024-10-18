@@ -152,5 +152,19 @@ namespace IT_Insitutute_CMS.Repositories
 
             }
         }
+
+        public void DeleteCourse(int id)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "DELETE FROM Courses where CourseID == @id ";
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+
+
+        }
     }
 }
