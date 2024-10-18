@@ -22,5 +22,13 @@ namespace IT_Insitutute_CMS.Controllers
             return Ok(notificationList);
         }
 
+        [HttpPost("Add-Notification")]
+
+        public IActionResult AddCourseNotification(NotificationRequest notification)
+        {
+            _notificationsRepository.AddNotification(notification);
+            return Ok("Notification Added Successfully..");
+        }
+
     }
 }
