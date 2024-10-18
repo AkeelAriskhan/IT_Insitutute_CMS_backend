@@ -108,5 +108,18 @@ namespace IT_Insitutute_CMS.Controllers
             _adminRepository.DeleteCourse(id);
             return Ok(id);
         }
+        [HttpPut("update-Course")]
+        public IActionResult UpdateCourse(int Id, decimal Totalfee)
+        {
+            _adminRepository.UpdateCourse(Id, Totalfee);
+            return Ok("Course Updated");
+        }
+
+        [HttpGet("Get-All-course")]
+        public IActionResult GetCourse()
+        {
+            var course = _adminRepository.GetCourses();
+            return Ok(course);
+        }
     }
 }

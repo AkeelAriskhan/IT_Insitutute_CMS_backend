@@ -11,9 +11,10 @@ namespace IT_Insitutute_CMS.IRepositories
         void UpdateStudent(studentupdateRequest student);
         void AddCourse(course course);
         void DeleteCourse(int id);
+        void UpdateCourse(int Id, decimal Totalfee);
         ICollection<regstuResponce> getregstudents();
         regstuResponce getstudentbyNic(string Nic);
 
-
+        ICollection<course> GetCourses();
     }
 }
