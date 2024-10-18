@@ -46,6 +46,30 @@ namespace IT_Insitutute_CMS.Repositories
             {
                 throw new Exception($"Error: {error.Message}");
             }
+
+
+        }
+        public void AddNotification(NotificationRequest notification)
+        {
+            try
+            {
+                using (var connection = new SqliteConnection(_ConnectionString))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"INSERT INTO Notifications(Nic,Type,SourceId,Date,IsDeleted) Values (@nic,@type,@sourceId,@date,@isDeleted)";
+                    command.Parameters.AddWithValue("@nic", notification.Nic);
+                    command.Parameters.AddWithValue("@type", notification.Type);
+                    command.Parameters.AddWithValue("@sourceId", notification.SourceId);
+                    command.Parameters.AddWithValue("@date", notification.Date);
+                    command.Parameters.AddWithValue("@isDeleted", false);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception error)
+            {
+                throw new Exception($"Error: {error.Message}");
+            }
         }
     }
 }
