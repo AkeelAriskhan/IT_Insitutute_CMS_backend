@@ -1,4 +1,5 @@
 ﻿using IT_Insitutute_CMS.IRepositories;
+using IT_Insitutute_CMS.Models.Request;
 using IT_Insitutute_CMS.Models.Responce;
 using Microsoft.Data.Sqlite;
 
@@ -43,6 +44,28 @@ namespace IT_Insitutute_CMS.Repositories
 
                 }
             }
+
+
+        }
+
+        public void fullpayment(Fullpaymentrequest Fullpaymentrequest)
+        {
+
+            var date = DateTime.Now;
+
+
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var coommand = connection.CreateCommand();
+                coommand.CommandText = @"UPDATE Students SET fullpayment=@fullpayment ,paymentDate=@date where Nic=@Nic";
+                coommand.Parameters.AddWithValue("@fullpayment", Fullpaymentrequest.Fullpaymentamount);
+                coommand.Parameters.AddWithValue("@date", date);
+                coommand.Parameters.AddWithValue("@Nic", Fullpaymentrequest.Nic);
+                coommand.ExecuteNonQuery();
+
+            }
+
 
 
         }
