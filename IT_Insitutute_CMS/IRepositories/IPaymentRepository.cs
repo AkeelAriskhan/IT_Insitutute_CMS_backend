@@ -1,4 +1,5 @@
-﻿using IT_Insitutute_CMS.Models.Responce;
+﻿using IT_Insitutute_CMS.Models.Request;
+using IT_Insitutute_CMS.Models.Responce;
 
 namespace IT_Insitutute_CMS.IRepositories
 {
@@ -6,5 +7,6 @@ namespace IT_Insitutute_CMS.IRepositories
     {
         instalmentresponse getinsallmentbydetailsbynic(string nic);
 
+        void fullpayment(Fullpaymentrequest Fullpaymentrequest);
     }
 }
