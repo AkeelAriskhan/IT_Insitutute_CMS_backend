@@ -9,6 +9,7 @@ namespace IT_Insitutute_CMS.Repositories
     public class PaymentsRepository: IPaymentRepository
     {
         private readonly string _connectionString;
+
         public PaymentsRepository(string connectionString)
         {
             _connectionString = connectionString;
@@ -48,7 +49,6 @@ namespace IT_Insitutute_CMS.Repositories
 
 
         }
-
         public void fullpayment(Fullpaymentrequest Fullpaymentrequest)
         {
 
@@ -66,8 +66,10 @@ namespace IT_Insitutute_CMS.Repositories
                 coommand.ExecuteNonQuery();
 
             }
-        }
 
+
+
+        }
         public void instalment(instalmentrequest instalmentrequest)
         {
             var date = DateTime.Now;
@@ -91,7 +93,6 @@ namespace IT_Insitutute_CMS.Repositories
             }
 
         }
-
         public void updateinstallment(installmentupdate instalmentrequest)
         {
             var date = DateTime.Now;
@@ -113,7 +114,6 @@ namespace IT_Insitutute_CMS.Repositories
 
             }
         }
-
         public List<instalmentresponse> instamentpaymentdetails()
         {
             var listintalmetlist = new List<instalmentresponse>();
