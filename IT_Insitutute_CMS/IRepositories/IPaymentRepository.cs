@@ -8,5 +8,6 @@ namespace IT_Insitutute_CMS.IRepositories
         instalmentresponse getinsallmentbydetailsbynic(string nic);
 
         void fullpayment(Fullpaymentrequest Fullpaymentrequest);
+        void instalment(instalmentrequest instalmentrequest);
     }
 }
