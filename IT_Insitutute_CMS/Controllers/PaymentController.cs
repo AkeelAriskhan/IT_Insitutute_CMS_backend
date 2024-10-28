@@ -1,4 +1,5 @@
 ﻿using IT_Insitutute_CMS.IRepositories;
+using IT_Insitutute_CMS.Models.Request;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,12 @@ namespace IT_Insitutute_CMS.Controllers
         public PaymentController(IPaymentRepository paymentRepository)
         {
             _paymentRepository = paymentRepository;
+        }
+        [HttpPost("full-payment")]
+        public IActionResult fullpayment(Fullpaymentrequest PaymentRequest)
+        {
+            _paymentRepository.fullpayment(PaymentRequest);
+            return Ok("payment paid");
         }
     }
 }
