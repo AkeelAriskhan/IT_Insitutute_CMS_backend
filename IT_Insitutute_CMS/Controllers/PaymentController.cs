@@ -35,5 +35,13 @@ namespace IT_Insitutute_CMS.Controllers
             return Ok("instalment paid");
 
         }
+        [HttpGet("getinstalmentdetails")]
+        public IActionResult instamentpaymentdetails()
+        {
+            var paymrntdetais = _paymentRepository.instamentpaymentdetails();
+            return Ok(paymrntdetais);
+
+        }
+
     }
 }
