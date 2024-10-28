@@ -65,8 +65,29 @@ namespace IT_Insitutute_CMS.Repositories
                 coommand.ExecuteNonQuery();
 
             }
+        }
+
+        public void instalment(instalmentrequest instalmentrequest)
+        {
+            var date = DateTime.Now;
+            var installment = getinsallmentbydetailsbynic(instalmentrequest.Nic);
 
 
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+
+                connection.Open();
+                var coommand = connection.CreateCommand();
+                coommand.CommandText = @"INSERT INTO installment (Nic,installmentAmount,Installments,PaymentDate,paymentDue,PaymentPaid,totalAmount) values (@Nic,@installmentAmount,@Installments,@PaymentDate,@paymentDue,@PaymentPaid,@totalAmount)";
+                coommand.Parameters.AddWithValue("@Nic", instalmentrequest.Nic);
+                coommand.Parameters.AddWithValue("@installmentAmount", instalmentrequest.installmentAmount);
+                coommand.Parameters.AddWithValue("@Installments", instalmentrequest.Installments);
+                coommand.Parameters.AddWithValue("@PaymentDate", date);
+                coommand.Parameters.AddWithValue("@paymentDue", instalmentrequest.paymentDue);
+                coommand.Parameters.AddWithValue("@PaymentPaid", instalmentrequest.PaymentPaid);
+                coommand.Parameters.AddWithValue("@totalAmount", instalmentrequest.totalAmount);
+                coommand.ExecuteNonQuery();
+            }
 
         }
 
