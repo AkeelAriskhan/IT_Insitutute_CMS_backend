@@ -11,5 +11,8 @@ namespace IT_Insitutute_CMS.IRepositories
         void fullpayment(Fullpaymentrequest Fullpaymentrequest);
         void instalment(instalmentrequest instalmentrequest);
         void updateinstallment(installmentupdate instalmentrequest);
+
+        List<instalmentresponse> instamentpaymentdetails();
+
     }
 }
