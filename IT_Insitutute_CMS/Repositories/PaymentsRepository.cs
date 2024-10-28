@@ -1,4 +1,5 @@
-﻿using IT_Insitutute_CMS.IRepositories;
+﻿using IT_Insitutute_CMS.Entities;
+using IT_Insitutute_CMS.IRepositories;
 using IT_Insitutute_CMS.Models.Request;
 using IT_Insitutute_CMS.Models.Responce;
 using Microsoft.Data.Sqlite;
@@ -89,6 +90,28 @@ namespace IT_Insitutute_CMS.Repositories
                 coommand.ExecuteNonQuery();
             }
 
+        }
+
+        public void updateinstallment(installmentupdate instalmentrequest)
+        {
+            var date = DateTime.Now;
+            var installment = getinsallmentbydetailsbynic(instalmentrequest.Nic);
+
+            var newpaidamount = installment.PaymentPaid + instalmentrequest.installmentAmount;
+            var nepaymentdue = installment.paymentDue - instalmentrequest.installmentAmount;
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var coommand = connection.CreateCommand();
+                coommand.CommandText = @"UPDATE installment SET PaymentDate=@PaymentDate,paymentDue=@paymentDue,PaymentPaid=@PaymentPaid WHERE Nic=@Nic ";
+
+                coommand.Parameters.AddWithValue("@Nic", instalmentrequest.Nic);
+                coommand.Parameters.AddWithValue("@PaymentDate", date);
+                coommand.Parameters.AddWithValue("@paymentDue", nepaymentdue);
+                coommand.Parameters.AddWithValue("@PaymentPaid", newpaidamount);
+                coommand.ExecuteNonQuery();
+
+            }
         }
 
     }
