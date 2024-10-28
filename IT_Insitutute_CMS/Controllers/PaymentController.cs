@@ -1,6 +1,7 @@
 ﻿using IT_Insitutute_CMS.Entities;
 using IT_Insitutute_CMS.IRepositories;
 using IT_Insitutute_CMS.Models.Request;
+using IT_Insitutute_CMS.Models.Responce;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,6 +43,13 @@ namespace IT_Insitutute_CMS.Controllers
             return Ok(paymrntdetais);
 
         }
+        [HttpGet("get-installment-details-by-id")]
+        public IActionResult getinsallmentbydetailsbynic(string nic)
+        {
+            var paymrntdetais=_paymentRepository.getinsallmentbydetailsbynic(nic);
+            return Ok(paymrntdetais);
+        }
+
 
     }
 }
