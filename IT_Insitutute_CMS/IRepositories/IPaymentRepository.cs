@@ -1,4 +1,5 @@
-﻿using IT_Insitutute_CMS.Models.Request;
+﻿using IT_Insitutute_CMS.Entities;
+using IT_Insitutute_CMS.Models.Request;
 using IT_Insitutute_CMS.Models.Responce;
 
 namespace IT_Insitutute_CMS.IRepositories
@@ -9,5 +10,6 @@ namespace IT_Insitutute_CMS.IRepositories
 
         void fullpayment(Fullpaymentrequest Fullpaymentrequest);
         void instalment(instalmentrequest instalmentrequest);
+        void updateinstallment(installmentupdate instalmentrequest);
     }
 }
