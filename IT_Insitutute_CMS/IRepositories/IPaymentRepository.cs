@@ -1,6 +1,10 @@
-﻿namespace IT_Insitutute_CMS.IRepositories
+﻿using IT_Insitutute_CMS.Models.Responce;
+
+namespace IT_Insitutute_CMS.IRepositories
 {
     public interface IPaymentRepository
     {
+        instalmentresponse getinsallmentbydetailsbynic(string nic);
+
     }
 }

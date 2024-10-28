@@ -1,12 +1,13 @@
-﻿using IT_Insitutute_CMS.Models.Request;
+﻿using IT_Insitutute_CMS.IRepositories;
+using IT_Insitutute_CMS.Models.Request;
 using Microsoft.Data.Sqlite;
 
 namespace IT_Insitutute_CMS.Repositories
 {
-    public class StudentRepository: IstudentRepository
+    public class StudentRepository: IStudentRepository
     {
         private readonly string _connectionString;
-        public studentRepository(string connectionString)
+        public StudentRepository(string connectionString)
         {
             _connectionString = connectionString;
         }

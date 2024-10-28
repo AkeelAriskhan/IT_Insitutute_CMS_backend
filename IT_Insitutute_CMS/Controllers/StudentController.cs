@@ -1,4 +1,5 @@
-﻿using IT_Insitutute_CMS.Models.Request;
+﻿using IT_Insitutute_CMS.IRepositories;
+using IT_Insitutute_CMS.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IT_Insitutute_CMS.Controllers
@@ -7,9 +8,9 @@ namespace IT_Insitutute_CMS.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly IstudentRepository _istudentRepository;
+        private readonly IStudentRepository _istudentRepository;
 
-        public studentcontroller(IstudentRepository istudentRepository)
+        public StudentController(IStudentRepository istudentRepository)
         {
             _istudentRepository = istudentRepository;
         }
