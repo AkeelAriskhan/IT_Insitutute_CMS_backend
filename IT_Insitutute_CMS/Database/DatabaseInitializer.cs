@@ -65,7 +65,7 @@ namespace IT_Insitutute_CMS.Database
                     );
 
                         CREATE TABLE IF NOT EXISTS ContactUS(
-                        Id INT PRIMARY KEY,
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Name NVARCHAR(50) NOT NULL,
                         Email NVARCHAR(50) NOT NULL,
                         Message NVARCHAR(500) NOT NULL,
