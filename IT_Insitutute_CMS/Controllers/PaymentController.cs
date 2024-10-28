@@ -21,5 +21,11 @@ namespace IT_Insitutute_CMS.Controllers
             _paymentRepository.fullpayment(PaymentRequest);
             return Ok("payment paid");
         }
+        [HttpPost("installment")]
+        public IActionResult instalment(instalmentrequest instalmentrequest)
+        {
+            _paymentRepository.instalment(instalmentrequest);
+            return Ok("instalment paid");
+        }
     }
 }
