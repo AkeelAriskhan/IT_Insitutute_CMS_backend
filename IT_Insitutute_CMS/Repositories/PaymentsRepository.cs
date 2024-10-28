@@ -114,5 +114,34 @@ namespace IT_Insitutute_CMS.Repositories
             }
         }
 
+        public List<instalmentresponse> instamentpaymentdetails()
+        {
+            var listintalmetlist = new List<instalmentresponse>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = @"select *from installment";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var installment = new instalmentresponse()
+                        {
+                            Nic = reader.GetString(0),
+                            installmentAmount = reader.GetDecimal(1),
+                            Installments = reader.GetString(2),
+                            PaymentDate = reader.GetDateTime(3),
+                            paymentDue = reader.GetDecimal(4),
+                            PaymentPaid = reader.GetDecimal(5),
+                            totalAmount = reader.GetDecimal(6),
+                        };
+                        listintalmetlist.Add(installment);
+                    }
+                }
+            }
+            return listintalmetlist;
+        }
+
     }
 }
