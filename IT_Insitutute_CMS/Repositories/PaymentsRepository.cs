@@ -1,4 +1,6 @@
-﻿using IT_Insitutute_CMS.IRepositories;
+﻿using IT_Insitutute_CMS.Entities;
+using IT_Insitutute_CMS.IRepositories;
+using IT_Insitutute_CMS.Models.Request;
 using IT_Insitutute_CMS.Models.Responce;
 using Microsoft.Data.Sqlite;
 
@@ -7,6 +9,7 @@ namespace IT_Insitutute_CMS.Repositories
     public class PaymentsRepository: IPaymentRepository
     {
         private readonly string _connectionString;
+
         public PaymentsRepository(string connectionString)
         {
             _connectionString = connectionString;
@@ -45,6 +48,99 @@ namespace IT_Insitutute_CMS.Repositories
             }
 
 
+        }
+        public void fullpayment(Fullpaymentrequest Fullpaymentrequest)
+        {
+
+            var date = DateTime.Now;
+
+
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var coommand = connection.CreateCommand();
+                coommand.CommandText = @"UPDATE Students SET fullpayment=@fullpayment ,paymentDate=@date where Nic=@Nic";
+                coommand.Parameters.AddWithValue("@fullpayment", Fullpaymentrequest.Fullpaymentamount);
+                coommand.Parameters.AddWithValue("@date", date);
+                coommand.Parameters.AddWithValue("@Nic", Fullpaymentrequest.Nic);
+                coommand.ExecuteNonQuery();
+
+            }
+
+
+
+        }
+        public void instalment(instalmentrequest instalmentrequest)
+        {
+            var date = DateTime.Now;
+            var installment = getinsallmentbydetailsbynic(instalmentrequest.Nic);
+
+
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+
+                connection.Open();
+                var coommand = connection.CreateCommand();
+                coommand.CommandText = @"INSERT INTO installment (Nic,installmentAmount,Installments,PaymentDate,paymentDue,PaymentPaid,totalAmount) values (@Nic,@installmentAmount,@Installments,@PaymentDate,@paymentDue,@PaymentPaid,@totalAmount)";
+                coommand.Parameters.AddWithValue("@Nic", instalmentrequest.Nic);
+                coommand.Parameters.AddWithValue("@installmentAmount", instalmentrequest.installmentAmount);
+                coommand.Parameters.AddWithValue("@Installments", instalmentrequest.Installments);
+                coommand.Parameters.AddWithValue("@PaymentDate", date);
+                coommand.Parameters.AddWithValue("@paymentDue", instalmentrequest.paymentDue);
+                coommand.Parameters.AddWithValue("@PaymentPaid", instalmentrequest.PaymentPaid);
+                coommand.Parameters.AddWithValue("@totalAmount", instalmentrequest.totalAmount);
+                coommand.ExecuteNonQuery();
+            }
+
+        }
+        public void updateinstallment(installmentupdate instalmentrequest)
+        {
+            var date = DateTime.Now;
+            var installment = getinsallmentbydetailsbynic(instalmentrequest.Nic);
+
+            var newpaidamount = installment.PaymentPaid + instalmentrequest.installmentAmount;
+            var nepaymentdue = installment.paymentDue - instalmentrequest.installmentAmount;
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var coommand = connection.CreateCommand();
+                coommand.CommandText = @"UPDATE installment SET PaymentDate=@PaymentDate,paymentDue=@paymentDue,PaymentPaid=@PaymentPaid WHERE Nic=@Nic ";
+
+                coommand.Parameters.AddWithValue("@Nic", instalmentrequest.Nic);
+                coommand.Parameters.AddWithValue("@PaymentDate", date);
+                coommand.Parameters.AddWithValue("@paymentDue", nepaymentdue);
+                coommand.Parameters.AddWithValue("@PaymentPaid", newpaidamount);
+                coommand.ExecuteNonQuery();
+
+            }
+        }
+        public List<instalmentresponse> instamentpaymentdetails()
+        {
+            var listintalmetlist = new List<instalmentresponse>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = @"select *from installment";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var installment = new instalmentresponse()
+                        {
+                            Nic = reader.GetString(0),
+                            installmentAmount = reader.GetDecimal(1),
+                            Installments = reader.GetString(2),
+                            PaymentDate = reader.GetDateTime(3),
+                            paymentDue = reader.GetDecimal(4),
+                            PaymentPaid = reader.GetDecimal(5),
+                            totalAmount = reader.GetDecimal(6),
+                        };
+                        listintalmetlist.Add(installment);
+                    }
+                }
+            }
+            return listintalmetlist;
         }
 
     }
