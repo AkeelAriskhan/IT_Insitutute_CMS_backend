@@ -43,7 +43,8 @@ namespace IT_Insitutute_CMS.Database
 
                      );
                     CREATE TABLE IF NOT EXISTS installment(
-                           Nic NAVCHAR(50),
+                          
+                           Nic NAVCHAR(50) ,
                            installmentAmount decimel,
                            Installments NAVCHAR(30), 
                            PaymentDate DATE,

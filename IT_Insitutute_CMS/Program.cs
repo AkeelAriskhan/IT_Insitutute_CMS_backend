@@ -1,4 +1,5 @@
 
+using IT_Insitutute_CMS.Database;
 using IT_Insitutute_CMS.IRepositories;
 using IT_Insitutute_CMS.Repositories;
 
@@ -17,6 +18,11 @@ namespace IT_Insitutute_CMS
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddSingleton<IAdminRepository>(provider => new AdminRepository(connectionString));
+            builder.Services.AddSingleton<IStudentRepository>(provider => new StudentRepository(connectionString));
+            builder.Services.AddSingleton<IPaymentRepository>(provider => new PaymentsRepository(connectionString));
+            builder.Services.AddSingleton<IContactUsRepository>(provider => new ContactUsRepository(connectionString));
+            builder.Services.AddSingleton<INotificationRepository>(provider => new NotificationRepository(connectionString));
+
 
 
 
@@ -24,6 +30,17 @@ namespace IT_Insitutute_CMS
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            var initialize = new DatabaseInitializer(connectionString);
+            initialize.Initialize();
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
 
             var app = builder.Build();
 
